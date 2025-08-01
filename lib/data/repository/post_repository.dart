@@ -1,55 +1,38 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:trio_farm/core/network/api_client.dart';
 import 'package:trio_farm/core/util/app_constant.dart';
-import 'package:trio_farm/core/util/app_dialog.dart';
+import 'package:trio_farm/data/model/post_model.dart';
 
-class ApiClient {
-  Future<http.Response?> get(BuildContext context, String path) async {
-    final url = Uri.parse('${AppConstant.baseUrl}$path');
-    try {
-      final response = await http.get(url);
-      _handleResponse(context, response);
-      return response;
-    } catch (e) {
-      AppDialog.showErrorDialog(
-        context,
-        'Failed to connect to the server:\n$e',
-      );
-      return null;
-    }
+class PostRepository {
+  final ApiClient _apiClient;
+  PostRepository(this._apiClient);
+
+  Future<List<Post>> getPosts(BuildContext context) async {
+    final response = await _apiClient.get(context, AppConstant.postUrl);
+    final List<dynamic> data = jsonDecode(response?.body ?? "");
+    return data.map((json) => Post.fromJson(json)).toList();
   }
 
-  Future<http.Response?> post(
+  Future<Post> getPostDetails(BuildContext context, int id) async {
+    final response = await _apiClient.get(
+      context,
+      '${AppConstant.postUrl}/$id',
+    );
+    return Post.fromJson(jsonDecode(response?.body ?? ""));
+  }
+
+  Future<Post> createPost(
     BuildContext context,
-    String path, {
-    required Map<String, dynamic> body,
-  }) async {
-    final url = Uri.parse('${AppConstant.baseUrl}$path');
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        body: jsonEncode(body),
-      );
-      _handleResponse(context, response);
-      return response;
-    } catch (e) {
-      AppDialog.showErrorDialog(
-        context,
-        'Failed to connect to the server:\n$e',
-      );
-      return null;
-    }
-  }
-
-  void _handleResponse(BuildContext context, http.Response response) {
-    if (response.statusCode < 200 || response.statusCode >= 300) {
-      AppDialog.showErrorDialog(
-        context,
-        'API Error: ${response.statusCode}\n\n${response.body}',
-      );
-      throw Exception('API Error: ${response.statusCode}');
-    }
+    String title,
+    String body,
+  ) async {
+    final response = await _apiClient.post(
+      context,
+      AppConstant.postUrl,
+      body: {'title': title, 'body': body, 'userId': 1},
+    );
+    return Post.fromJson(jsonDecode(response?.body ?? ""));
   }
 }

@@ -25,12 +25,12 @@ class AppDialog {
           (_) => AlertDialog(
             title: const Text('Success'),
             content: Text(message),
-            // actions: [
-            //   TextButton(
-            //     child: const Text('OK'),
-            //     onPressed: () => Navigator.of(context).pop(),
-            //   ),
-            // ],
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
           ),
     );
   }

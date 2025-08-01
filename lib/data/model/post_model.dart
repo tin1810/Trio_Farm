@@ -1,6 +1,3 @@
-// lib/data/models/post_model.dart
-import 'dart:convert';
-
 class Post {
   final int userId;
   final int id;
