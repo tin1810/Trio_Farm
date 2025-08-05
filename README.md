@@ -1,16 +1,39 @@
-# trio_farm_app
+# Trio Farm App
 
-A new Flutter project.
+A Flutter mobile application built as part of a code test assignment.
 
-## Getting Started
+## 🚀 Getting Started
 
-This project is a starting point for a Flutter application.
+Follow the instructions below to set up and run the project on your local machine.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## ✅ Prerequisites
+Make sure you have the following installed:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (3.x or higher)
+- Android Studio or Visual Studio Code with Flutter & Dart plugins
+- A physical device or emulator set up for Android or iOS
+
+You can verify your environment setup by running:
+
+
+flutter doctor
+
+Installation & Running the Project
+1. Clone the Repository
+
+    git clone https://github.com/tin1810/Trio_Farm.git
+    cd Trio_Farm
+
+2.Install Dependencies
+
+  flutter pub get
+
+3. Run the app 
+
+  flutter run
+
+4. Check test pass
+
+   flutter test
